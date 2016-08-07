@@ -4,7 +4,7 @@ Heartmon
 Manage application availability by monitoring heartbeat signals
 in the log stream.
 
-![Heartmon Concept Diagram][https://github.com/kfeldmann/heartmon/raw/master/heartmon-concept-v03.png]
+![Heartmon Concept Diagram](https://github.com/kfeldmann/heartmon/raw/master/heartmon-concept-v03.png)
 
 ### Usage
 
