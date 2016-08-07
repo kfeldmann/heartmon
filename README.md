@@ -2,7 +2,7 @@ Heartmon
 ========
 
 Manage application availability by monitoring heartbeat signals
-in its log stream.
+in the log stream.
 
 ![Heartmon Concept Diagram][https://github.com/kfeldmann/heartmon/heartmon-concept-v03.png]
 
