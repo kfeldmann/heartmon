@@ -32,7 +32,7 @@ Usage: ./heartmon -d heartmon_config_directory \
 ```
 Heartmon will always re-spawn an app process if it terminates. There is
 no support for "run once" behavior. Each spawning of the app will be
-logged with a LOG_NOTICE message inserted into the log stream.
+logged with a `LOG_NOTICE` message inserted into the log stream.
 
 Filters use simple substrings, applied to one line of the log stream
 at a time.
@@ -49,14 +49,14 @@ re-spawn, there will be a grace period before any of the action timers
 start counting down (warn, crit, restart). The grace period will be equal
 to the shortest non-zero timer threshold.
 
-If the "warn" threshold is exceeded, a LOG_WARNING message will be
+If the "warn" threshold is exceeded, a `LOG_WARNING` message will be
 inserted into the log stream.
 
-If the "crit" threshold is exceeded, a LOG_WARNING message will be
+If the "crit" threshold is exceeded, a `LOG_WARNING` message will be
 inserted into the log stream.
 
-If the "restart" threshold is exceeded, an LOG_ERR message will be
-inserted into the log stream, and the app process will be sent a KILL
+If the "restart" threshold is exceeded, an `LOG_ERR` message will be
+inserted into the log stream, and the app process will be sent a `KILL`
 signal. After the process terminates, it will be re-spawned.
 
 ### Heartmon Features
@@ -64,20 +64,20 @@ signal. After the process terminates, it will be re-spawned.
 - Run app and log-collector processes. Read the log stream from the app
   and/or fifo(s) and pipe it to the log collector
 - If log collector terminates or stops consuming the log stream, buffer
-  log data and re-spawn the log collector process
-- Inject a log record for the re-spawn event into the log stream
-- If app terminates, re-spawn the app process
-- Inject a log record for the re-spawn event into the log stream
-- Watch the log stream coming from the app for a “heartbeat.” Any line
+  log data and re-spawn the log collector process, inject a log record
+  for the re-spawn event into the log stream
+- If app terminates, re-spawn the app process and inject a log record
+  for the re-spawn event into the log stream
+- Watch the log stream coming from the app for a "heartbeat." Any line
   in the log stream that matches the configured filters is counted as a
   "heartbeat." The threshold values specify how much time can elapse
   between successive heartbeats
-- What to look for is configurable using include and exclude filters
-- The time thresholds for warning, critical, and restart actions are
-  configurable
-- If thresholds are exceeded, actions are taken, including:
-  - Inject a log record into the log stream
-- Kill and re-spawn the app process
+   - What to look for is configurable using include and exclude filters
+   - The time thresholds for warning, critical, and restart actions are
+     configurable
+   - If thresholds are exceeded, actions are taken, including:
+      - Inject a log record into the log stream
+      - Kill and re-spawn the app process
 
 ### Application Best Practice
 
