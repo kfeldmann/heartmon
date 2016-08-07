@@ -1,0 +1,64 @@
+Version 0.2
+===========
+
+Usage: ./heartmon -d heartmon_config_directory \
+       [-i include_filter] [-e exclude_filter] \
+       [-w warn_seconds] [-c crit_seconds] [-r restart_seconds]
+
+<heartmon_config_directory>/
+	app/
+		0: <application_binary>
+		1: <argv[1]>
+		2: <argv[2]>
+		3: <argv[3]>
+		<n>: <argv[n]>
+	log/
+		0: <logger_binary>
+		1: <argv[1]>
+		2: <argv[2]>
+		3: <argv[3]>
+		<n>: <argv[n]>
+
+
+Version 0.3
+===========
+
+Decision - logger vs. syslog
+----------------------------
+
+Ron suggested that all output go to syslog. The problem is that syslog
+only supports one ident, facility, process name, and process id at a
+time. To log heartmon and application output with different identifiers,
+we'd have to close and reopen syslog constantly. The binary name and
+process id would always be heartmon's in any case. Furthermore, syslog
+does not do well with multi-line formats such as Java app server logs.
+Where it makes sense to log to syslog, simply configure logger(1) as
+the logger process.
+
+Usage: ./heartmon -d heartmon_config_directory \
+       [-i include_filter] [-e exclude_filter] \
+       [-w warn_seconds] [-c crit_seconds] [-r restart_seconds]
+
+<heartmon_config_directory>/
+	app/
+		0: <application_binary>
+		1: <argv[1]>
+		2: <argv[2]>
+		<n>: <argv[n]>
+	fifo/
+		0: <path_to_fifo[0]>
+		1: <path_to_fifo[1]>
+		2: <path_to_fifo[2]>
+		<n>: <path_to_fifo[n]>
+	log/
+		0: <logger_binary>
+		1: <argv[1]>
+		2: <argv[2]>
+		<n>: <argv[n]>
+
+Notes from reading DJB source
+=============================
+
+ - When killing processes, send SIGTERM followed immediately by SIGCONT.
+ - Make small helper functions to increase readability (e.g. open_read())
+ - Pass state using structs (e.g. iopause())

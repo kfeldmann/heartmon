@@ -1,0 +1,8 @@
+ - reduce select timeout for writes to zero
+ - signal handling to avoid terminating while reading/writing?
+ - sigalarm to avoid hangs while reading/writing?
+
+Other:
+ v Add signal handling to call shutdown_msg on term
+ v Print app and log handler pid's in startup notice
+   messages
